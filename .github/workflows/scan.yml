@@ -6,6 +6,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   scan:
@@ -31,7 +32,9 @@ jobs:
         api: "https://api.staging.endorlabs.com"
         enable_github_action_token: "true"
         sarif_file: findings.sarif
-    - name: Upload SARIF to github
-      uses: github/codeql-action/upload-sarif@9885f86fab4879632b7e44514f19148225dfbdcd
-      with:
-        sarif_file: findings.sarif
+    - name: Login
+      uses: atlassian/gajira-login@v3
+      env:
+        JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+        JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
