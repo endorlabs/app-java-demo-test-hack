@@ -23,15 +23,6 @@ jobs:
       with:
         distribution: 'microsoft'
         java-version: '17'
-    - name: Compile Package
-      run: mvn clean install
-    - name: Run endorctl
-      uses: endorlabs/github-action@b51bd06466b545f01a6ac788e3e1147695d3936c
-      with:
-        namespace: "demo"
-        api: "https://api.staging.endorlabs.com"
-        enable_github_action_token: "true"
-        sarif_file: findings.sarif
     - name: Login
       uses: atlassian/gajira-login@v3
       env:
